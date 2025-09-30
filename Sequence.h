@@ -1,16 +1,25 @@
 #include <iostream>
 using namespace std;
+
+struct Node {
+public:
+    string item;
+    Node *next;
+    Node *prev;
+    Node(): next(nullptr), prev(nullptr) {}
+    Node(string item): item(item), next(nullptr), prev(nullptr) {}
+};
+
 class Sequence {
-    public:
-    string value;
-    Sequence *next;
-    Sequence *prev;
-    Sequence();
+public:
+    Node* head;
+    Node* tail;
+
     ~Sequence();
     Sequence(size_t size);
     Sequence(const Sequence &other);
     Sequence &operator=(const Sequence &other);
-    Sequence &operator[](size_t index);
+    string &operator[](size_t index);
     void push_back(string item);
     void pop_back();
     void insert(size_t index, string item);
