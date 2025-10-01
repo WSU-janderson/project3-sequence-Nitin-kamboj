@@ -15,6 +15,7 @@ public:
 
 class Sequence {
 public:
+    size_t length;
     Node* head;
     Node* tail;
     Sequence();

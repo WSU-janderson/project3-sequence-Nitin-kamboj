@@ -7,7 +7,15 @@ Sequence::Sequence() {
     this->head = nullptr;
     this->tail = nullptr;
 }
-Sequence::Sequence(size_t size) {
+Sequence::Sequence(size_t len) {
+    length = 0;
+    int i = 0;
+    this->head = nullptr;
+    this->tail = nullptr;
+    while (i < len) {
+        push_back("");
+        i++;
+    }
 }
 // creates copy of constructor
 Sequence::Sequence(const Sequence &other) {
@@ -26,6 +34,12 @@ Sequence &Sequence::operator=(const Sequence &other) {
 
 
 string &Sequence::operator[](size_t index) {
+    Node *curr = head;
+    int count = 0;
+    while (count != index) {
+        curr = curr->next;
+        count++;
+    }
 
 }
 
@@ -48,6 +62,7 @@ void Sequence::push_back(string item) {
         newNode->prev = curr;
         tail = newNode;
     }
+    length++;
 
 }
 
@@ -78,9 +93,10 @@ void Sequence::pop_back() {
         tail = curr;
         delete nodeToDelete;
     }
+    length--;
 }
 
-//
+// Need to work on this
 void Sequence::insert(size_t index, string item) {
 
     Node *newNode = new Node(item);
@@ -109,6 +125,8 @@ void Sequence::insert(size_t index, string item) {
         curr->prev = newNode;
         previousPointer->next = newNode;
     }
+    length++;
+
 }
 
 //
@@ -206,7 +224,7 @@ void Sequence::erase(size_t position) {
     delete curr;
 }
 
-//
+// Need to work on this
 void Sequence::erase(size_t position, size_t count) {
     Node *curr = head;
     size_t index = 0;
@@ -218,11 +236,19 @@ void Sequence::erase(size_t position, size_t count) {
         throw exception();
     }
     else if (position == 0) {
+        curr = head;
         while (count != 0) {
-            head = head->next;
-            delete curr;
-            curr = head;
             count--;
+            if (count == 0 && head->next == nullptr) {
+                head = nullptr;
+                tail = nullptr;
+                delete curr;
+            }
+            else {
+                head = head->next;
+                delete curr;
+                curr = head;
+            }
         }
     }
     else {
