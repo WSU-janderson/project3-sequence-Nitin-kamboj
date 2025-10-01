@@ -1,3 +1,6 @@
+#ifndef SEQUENCE_H
+#define SEQUENCE_H
+
 #include <iostream>
 using namespace std;
 
@@ -14,7 +17,7 @@ class Sequence {
 public:
     Node* head;
     Node* tail;
-
+    Sequence();
     ~Sequence();
     Sequence(size_t size);
     Sequence(const Sequence &other);
@@ -33,3 +36,4 @@ public:
     friend ostream &operator<<(ostream &os, const Sequence &seq);
 
 };
+#endif
