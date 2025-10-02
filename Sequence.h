@@ -4,20 +4,20 @@
 #include <iostream>
 using namespace std;
 
-struct Node {
+struct SequenceNode {
 public:
     string item;
-    Node *next;
-    Node *prev;
-    Node(): next(nullptr), prev(nullptr) {}
-    Node(string item): item(item), next(nullptr), prev(nullptr) {}
+    SequenceNode *next;
+    SequenceNode *prev;
+    SequenceNode(): next(nullptr), prev(nullptr) {}
+    SequenceNode(string item): item(item), next(nullptr), prev(nullptr) {}
 };
 
 class Sequence {
 public:
-    size_t length;
-    Node* head;
-    Node* tail;
+    size_t length = 0;
+    SequenceNode* head;
+    SequenceNode* tail;
     Sequence();
     ~Sequence();
     Sequence(size_t size);

@@ -34,7 +34,7 @@ Sequence &Sequence::operator=(const Sequence &other) {
 
 
 string &Sequence::operator[](size_t index) {
-    Node *curr = head;
+    SequenceNode *curr = head;
     int count = 0;
     while (count != index) {
         curr = curr->next;
@@ -45,7 +45,7 @@ string &Sequence::operator[](size_t index) {
 
 //
 void Sequence::push_back(string item) {
-    Node *newNode = new Node(item);
+    SequenceNode *newNode = new SequenceNode(item);
 
 
     if (head == nullptr) {
@@ -55,7 +55,7 @@ void Sequence::push_back(string item) {
         newNode->prev = nullptr;
     }
     else {
-        Node* curr = head;
+        SequenceNode* curr = head;
         while (curr->next != nullptr) {
             curr = curr->next;
         }
@@ -64,14 +64,13 @@ void Sequence::push_back(string item) {
         tail = newNode;
     }
     length++;
-
 }
 
 
 //
 void Sequence::pop_back() {
 
-    Node *curr = head;
+    SequenceNode *curr = head;
     if (curr == nullptr) {
         throw exception();
     }
@@ -86,7 +85,7 @@ void Sequence::pop_back() {
             curr = curr -> next;
         }
 
-        Node* nodeToDelete = curr;
+        SequenceNode* nodeToDelete = curr;
         // last value if done push_back
         curr = curr->prev;
         // so that value next points to nullptr
@@ -100,9 +99,9 @@ void Sequence::pop_back() {
 // Need to work on this
 void Sequence::insert(size_t index, string item) {
 
-    Node *newNode = new Node(item);
+    SequenceNode *newNode = new SequenceNode(item);
     size_t count = 0;
-    Node *curr = head;
+    SequenceNode *curr = head;
     if (head == nullptr && index == 0) {
         head = newNode;
         newNode->item = item;
@@ -110,12 +109,10 @@ void Sequence::insert(size_t index, string item) {
         newNode->prev = nullptr;
         tail = newNode;
     }
-    if (index == 0) {
+    else if (index == 0) {
         newNode->next = head;
         newNode->prev = nullptr;
-        if (curr != nullptr) {
-            curr->prev = newNode;
-        }
+        curr->prev = newNode;
         head = newNode;
 
     }
@@ -126,9 +123,18 @@ void Sequence::insert(size_t index, string item) {
         }
 
         // prevoius pointer
-        Node* previousPointer = curr->prev;
-        curr->prev = newNode;
-        previousPointer->next = newNode;
+        if (index < length) {
+            SequenceNode* previousPointer = curr->prev;
+            curr->prev = newNode;
+            previousPointer->next = newNode;
+            newNode->next = curr;
+            newNode->prev = previousPointer;
+        }
+        else  {
+            tail = newNode;
+            curr->next = newNode;
+            newNode->prev = curr;
+        }
     }
     length++;
 
@@ -146,7 +152,7 @@ string Sequence::front() const {
 
 //
 string Sequence::back() const {
-    Node* curr = head;
+    SequenceNode* curr = head;
     if (curr == nullptr) {
         throw exception();
     }
@@ -172,19 +178,20 @@ bool Sequence::empty() const {
 //
 size_t Sequence::size() const{
     size_t size = 0;
-    Node *curr = head;
+    SequenceNode *curr = head;
     while (curr != nullptr) {
         curr = curr->next;
         size++;
     }
+    // cout << length << endl;
         return size;
 }
 
 //
 void Sequence::clear() {
-            Node *curr = head;
+            SequenceNode *curr = head;
     while (curr != nullptr) {
-        Node *nodeToDelete = curr;
+        SequenceNode *nodeToDelete = curr;
         curr = curr->next;
         delete nodeToDelete;
     }
@@ -195,7 +202,7 @@ void Sequence::clear() {
 //
 void Sequence::erase(size_t position) {
     size_t count = 0;
-    Node *curr = head;
+    SequenceNode *curr = head;
     while (curr != nullptr &&  count < position) {
         curr = curr->next;
         count++;
@@ -220,19 +227,20 @@ void Sequence::erase(size_t position) {
         tail->next = nullptr;
     }
     else {
-        Node *posPrev = curr->prev;
-        Node *posNext = curr->next;
+        SequenceNode *posPrev = curr->prev;
+        SequenceNode *posNext = curr->next;
         posPrev->next = posNext;
         posNext->prev = posPrev;
 
     }
     delete curr;
+    length--;
 }
 
 // Looks good for now
 void Sequence::erase(size_t position, size_t count) {
     int tempCount = count;
-    Node *curr = head;
+    SequenceNode *curr = head;
     size_t index = 0;
     while(curr != nullptr && index < position + count -1) {
         curr = curr->next;
@@ -249,10 +257,12 @@ void Sequence::erase(size_t position, size_t count) {
                 head = nullptr;
                 tail = nullptr;
                 delete curr;
+                length--;
             }
             else {
                 head = head->next;
                 delete curr;
+                length--;
                 curr = head;
             }
         }
@@ -260,8 +270,8 @@ void Sequence::erase(size_t position, size_t count) {
     else {
         // Center node to be connected to the last after deleting between node
         if(curr->next != nullptr) {
-            Node *nodeToConnected = curr->next;
-            Node *nodeToDelete = curr;
+            SequenceNode *nodeToConnected = curr->next;
+            SequenceNode *nodeToDelete = curr;
             while (tempCount != 0) {
                 curr = curr->prev;
                 delete nodeToDelete;
@@ -271,7 +281,7 @@ void Sequence::erase(size_t position, size_t count) {
             curr->next = nodeToConnected;
         }
         else {
-            Node *nodeToDelete = curr;
+            SequenceNode *nodeToDelete = curr;
             while (tempCount != 0) {
                 curr = curr->prev;
                 delete nodeToDelete;
@@ -288,7 +298,7 @@ void Sequence::erase(size_t position, size_t count) {
 //
 
 ostream &operator<<(ostream &os, const Sequence &seq) {
-  Node* newNode = seq.head;
+  SequenceNode* newNode = seq.head;
     os << "[";
     while (newNode != nullptr) {
         if (newNode->next != nullptr) {

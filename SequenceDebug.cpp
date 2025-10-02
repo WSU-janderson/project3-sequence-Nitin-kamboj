@@ -37,9 +37,17 @@ int main() {
     s.push_back("OH");
     s.push_back("KO");
     cout << s;
-    s.erase(2,2);
+    s.erase(0,4);
     cout << s;
-    // s.insert(1,"hello");
-    // cout << s;
+    s.insert(0,"HELLO");
+    cout << s;
+    s.insert(0,"BYE");
+    cout << s;
+    cout << s.size() << endl;
+    s.insert(1,"OK");
+    cout << s;
+    cout << s.size() << endl;
+    s.insert(3,"KO");
+    cout << s;
     return 0;
 }
