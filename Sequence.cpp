@@ -49,6 +49,7 @@ void Sequence::push_back(string item) {
 
 
     if (head == nullptr) {
+        head = newNode;
         newNode->item = item;
         newNode->next = nullptr;
         newNode->prev = nullptr;
@@ -102,8 +103,12 @@ void Sequence::insert(size_t index, string item) {
     Node *newNode = new Node(item);
     size_t count = 0;
     Node *curr = head;
-    if (head == nullptr) {
-
+    if (head == nullptr && index == 0) {
+        head = newNode;
+        newNode->item = item;
+        newNode->next = nullptr;
+        newNode->prev = nullptr;
+        tail = newNode;
     }
     if (index == 0) {
         newNode->next = head;
@@ -115,7 +120,7 @@ void Sequence::insert(size_t index, string item) {
 
     }
     else {
-        while (curr != nullptr && count < index) {
+        while (curr->next != nullptr && count < index) {
             curr = curr->next;
             count++;
         }
@@ -224,12 +229,13 @@ void Sequence::erase(size_t position) {
     delete curr;
 }
 
-// Need to work on this
+// Looks good for now
 void Sequence::erase(size_t position, size_t count) {
+    int tempCount = count;
     Node *curr = head;
     size_t index = 0;
     while(curr != nullptr && index < position + count -1) {
-       curr = curr->next;
+        curr = curr->next;
         index++;
     }
     if (curr == nullptr) {
@@ -253,26 +259,47 @@ void Sequence::erase(size_t position, size_t count) {
     }
     else {
         // Center node to be connected to the last after deleting between node
-        Node *nodeToConnected = curr->prev;
-        while (count != 0) {
+        if(curr->next != nullptr) {
+            Node *nodeToConnected = curr->next;
             Node *nodeToDelete = curr;
-            if (curr->next != nullptr) {
-                curr = curr->next;
+            while (tempCount != 0) {
+                curr = curr->prev;
+                delete nodeToDelete;
+                nodeToDelete = curr;
+                tempCount--;
             }
-            delete nodeToDelete;
-            count--;
+            curr->next = nodeToConnected;
         }
-        if (curr->next == nullptr) {
-            tail = nodeToConnected;
-            nodeToConnected->next = curr;
+        else {
+            Node *nodeToDelete = curr;
+            while (tempCount != 0) {
+                curr = curr->prev;
+                delete nodeToDelete;
+                nodeToDelete = curr;
+                tempCount--;
+            }
+            curr->next = nullptr;
+            tail = curr;
         }
-        curr->prev = nodeToConnected;
 
     }
-
 }
 
 //
-// friend ostream &operator<<(ostream &os, const Sequence &seq) {
-//
-// }
+
+ostream &operator<<(ostream &os, const Sequence &seq) {
+  Node* newNode = seq.head;
+    os << "[";
+    while (newNode != nullptr) {
+        if (newNode->next != nullptr) {
+            os << newNode->item << ", ";
+        }
+        else {
+            os << newNode->item ;
+        }
+        newNode = newNode->next;
+
+    }
+    os << "]" << endl;
+    return os;
+}
