@@ -19,6 +19,12 @@ Sequence::Sequence(size_t len) {
 }
 // creates copy of constructor
 Sequence::Sequence(const Sequence &other) {
+SequenceNode *curr = head;
+
+        while (curr != nullptr) {
+            push_back(curr->item);
+            curr = curr->next;
+    }
 
 }
 
@@ -29,7 +35,13 @@ Sequence::~Sequence() {
 
 //
 Sequence &Sequence::operator=(const Sequence &other) {
+    SequenceNode *curr = head;
 
+    while (curr != nullptr) {
+        push_back(curr->item);
+        curr = curr->next;
+    }
+    return *this;
 }
 
 
