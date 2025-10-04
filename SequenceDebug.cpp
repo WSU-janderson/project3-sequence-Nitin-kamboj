@@ -49,7 +49,6 @@ int main() {
     cout << s.size() << endl;
     s.insert(3,"KO");
     cout << s;
-
     //
     s[0] = "HELLO";
     s[1] = "BYE";
