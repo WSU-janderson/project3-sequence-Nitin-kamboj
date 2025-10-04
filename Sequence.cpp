@@ -8,7 +8,7 @@ Sequence::Sequence() {
     this->tail = nullptr;
 }
 Sequence::Sequence(size_t len) {
-    length = 0;
+    length = len;
     int i = 0;
     this->head = nullptr;
     this->tail = nullptr;
@@ -33,14 +33,18 @@ Sequence &Sequence::operator=(const Sequence &other) {
 }
 
 
-string &Sequence::operator[](size_t index) {
+string& Sequence::operator[](size_t index) {
     SequenceNode *curr = head;
     int count = 0;
-    while (count != index) {
+    while (curr != nullptr && count != index) {
         curr = curr->next;
         count++;
     }
 
+    if (curr == nullptr) {
+        throw out_of_range("Sequence is out of range");
+    }
+    return curr->item;
 }
 
 //

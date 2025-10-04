@@ -71,7 +71,7 @@ int main() {
 		OUTSTREAM << "Testing sequence creation and printing" << endl;
 		OUTSTREAM << "--------------------------------------" << endl;
 #ifdef __CREATE_PRINT
-		SequenceNode data(4);
+		Sequence data(4);
 		data[0] = 100;
 		data[1] = 200;
 		data[2] = 300;
@@ -95,8 +95,8 @@ int main() {
 		OUTSTREAM << "Testing multiple sequences" << endl;
 		OUTSTREAM << "--------------------------" << endl;
 #ifdef __INDEP
-		SequenceNode s1(3);
-		SequenceNode s2(3);
+		Sequence s1(3);
+		Sequence s2(3);
 
 		for (int i = 0; i < 3; i++) {
 			s1[i] = i;
@@ -125,7 +125,7 @@ int main() {
 		OUTSTREAM << "Testing push_back()" << endl;
 		OUTSTREAM << "-------------------" << endl;
 #ifdef __PUSH_BACK
-		SequenceNode data(3);
+		Sequence data(3);
 		data[0] = 100;
 		data[1] = 200;
 		data[2] = 300;
@@ -151,7 +151,7 @@ int main() {
 		OUTSTREAM << "Testing push_back() on an empty sequence" << endl;
 		OUTSTREAM << "-------------------" << endl;
 #ifdef __PUSH_BACK_EMPTY
-		SequenceNode data(0);
+		Sequence data(0);
 		data.push_back(100);
 		data.push_back(200);
 		data.push_back(300);
@@ -177,7 +177,7 @@ int main() {
 		OUTSTREAM << "Testing pop_back()" << endl;
 		OUTSTREAM << "------------------" << endl;
 #ifdef __POP_BACK
-		SequenceNode data(5);
+		Sequence data(5);
 		for (int i = 0; i < 5; i++) {
 			data[i] = ( i + 1 ) * 100;
 		}
@@ -203,7 +203,7 @@ int main() {
 		OUTSTREAM << "Testing pop_back() on an empty sequence" << endl;
 		OUTSTREAM << "------------------" << endl;
 #ifdef __POP_BACK_EMPTY
-		SequenceNode data(3);
+		Sequence data(3);
 		for (int i = 0; i < 3; i++) {
 			data[i] = ( i + 1 ) * 100;
 		}
@@ -231,7 +231,7 @@ int main() {
 		OUTSTREAM << "Testing insert()" << endl;
 		OUTSTREAM << "------------------" << endl;
 #ifdef __INSERT
-		SequenceNode data(5);
+		Sequence data(5);
 
 		for (int i = 0; i < 5; i++) {
 			data[i] = ( i + 1 ) * 100;
@@ -270,7 +270,7 @@ int main() {
 		OUTSTREAM << "Testing insert() on an invalid index" << endl;
 		OUTSTREAM << "------------------" << endl;
 #ifdef __INSERT_INVALID
-		SequenceNode data(3);
+		Sequence data(3);
 		for (int i = 0; i < 3; i++) {
 			data[i] = ( i + 1 ) * 100;
 		}
@@ -295,7 +295,7 @@ int main() {
 		OUTSTREAM << "Testing front()" << endl;
 		OUTSTREAM << "---------------" << endl;
 #ifdef __FRONT
-		SequenceNode data(3);
+		Sequence data(3);
 
 		for (int i = 0; i < 3; i++) {
 			data[i] = ( i + 1 ) * 100;
@@ -323,7 +323,7 @@ int main() {
 		OUTSTREAM << "Testing front() on an empty sequence" << endl;
 		OUTSTREAM << "------------------------------------" << endl;
 #ifdef __FRONT_EMPTY
-		SequenceNode data(0);
+		Sequence data(0);
 		data.front();
 		OUTSTREAM << "ERROR: front() DID NOT throw an exception" << endl
 			<< endl;
@@ -345,7 +345,7 @@ int main() {
 		OUTSTREAM << "Testing back()" << endl;
 		OUTSTREAM << "---------------" << endl;
 #ifdef __BACK
-		SequenceNode data(3);
+		Sequence data(3);
 
 		for (int i = 0; i < 3; i++) {
 			data[i] = ( i + 1 ) * 100;
@@ -373,7 +373,7 @@ int main() {
 		OUTSTREAM << "Testing back() on an empty sequence" << endl;
 		OUTSTREAM << "------------------------------------" << endl;
 #ifdef __BACK_EMPTY
-		SequenceNode data(0);
+		Sequence data(0);
 		data.back();
 		OUTSTREAM << "ERROR: back() DID NOT throw an exception" << endl << endl;
 #else
@@ -394,8 +394,8 @@ int main() {
 		OUTSTREAM << "Testing empty()" << endl;
 		OUTSTREAM << "---------------" << endl;
 #ifdef __EMPTY
-		SequenceNode empty_sequence(0);
-		SequenceNode nonempty_sequence(1);
+		Sequence empty_sequence(0);
+		Sequence nonempty_sequence(1);
 
 		OUTSTREAM << "Empty sequence, empty returns: " << empty_sequence.empty()
 			<< endl;
@@ -420,8 +420,8 @@ int main() {
 		OUTSTREAM << "Testing size()" << endl;
 		OUTSTREAM << "---------------" << endl;
 #ifdef __SIZE
-		SequenceNode data(7);
-		SequenceNode empty_sequence(0);
+		Sequence data(7);
+		Sequence empty_sequence(0);
 
 		OUTSTREAM << "Sequence length 7, size returned: " << data.size()
 			<< endl;
@@ -446,7 +446,7 @@ int main() {
 		OUTSTREAM << "Testing clear()" << endl;
 		OUTSTREAM << "---------------" << endl;
 #ifdef __CLEAR
-		SequenceNode data(5);
+		Sequence data(5);
 
 		for (int i = 0; i < 5; i++) {
 			data[i] = ( i + 1 ) * 100;
@@ -474,7 +474,7 @@ int main() {
 		OUTSTREAM << "Testing erase()" << endl;
 		OUTSTREAM << "------------------" << endl;
 #ifdef __ERASE
-		SequenceNode data(10);
+		Sequence data(10);
 		for (int i = 0; i < 10; i++) {
 			data[i] = ( i + 1 ) * 100;
 		}
@@ -508,7 +508,7 @@ int main() {
 		OUTSTREAM << "Testing erase() on invalid parameters" << endl;
 		OUTSTREAM << "------------------" << endl;
 #ifdef __ERASE_INVALID
-		SequenceNode data(5);
+		Sequence data(5);
 		for (int i = 0; i < 5; i++) {
 			data[i] = ( i + 1 ) * 100;
 		}
@@ -533,8 +533,8 @@ int main() {
 		OUTSTREAM << "Testing assignment (=) operator" << endl;
 		OUTSTREAM << "------------------" << endl;
 #ifdef __ASSIGNMENT
-		SequenceNode data1(5);
-		SequenceNode data2(0);
+		Sequence data1(5);
+		Sequence data2(0);
 
 		for (int i = 0; i < 5; i++) {
 			data1[i] = ( i + 1 ) * 100;
@@ -567,7 +567,7 @@ int main() {
 		OUTSTREAM << "Testing copy constructor" << endl;
 		OUTSTREAM << "------------------" << endl;
 #ifdef __COPY_CONSTRUCTOR
-		SequenceNode data(5);
+		Sequence data(5);
 
 		for (int i = 0; i < 5; i++) {
 			data[i] = ( i + 1 ) * 100;
@@ -634,7 +634,7 @@ int main() {
 
 void memoryLeakTest() {
 	try {
-		SequenceNode s(MEM_TEST_SIZE);
+		Sequence s(MEM_TEST_SIZE);
 		for (int i = 0; i < MEM_TEST_SIZE; i++) {
 			s[i] = i;
 		}
@@ -642,7 +642,7 @@ void memoryLeakTest() {
 	catch (exception& e) { throw e; }
 }
 
-void testCopyConstructor(SequenceNode s, ostream& os) {
+void testCopyConstructor(Sequence s, ostream& os) {
 	s[0] = 1;
 	os << "Copied Sequence:        " << s << endl;
 }
