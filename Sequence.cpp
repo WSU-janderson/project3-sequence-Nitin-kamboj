@@ -56,6 +56,7 @@ Sequence::~Sequence() {
 //
 Sequence &Sequence::operator=(const Sequence &other) {
     SequenceNode *otherCurr = other.head;
+    clear();
 
         while (otherCurr != nullptr) {
 

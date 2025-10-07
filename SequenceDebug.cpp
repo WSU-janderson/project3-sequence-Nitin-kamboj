@@ -20,6 +20,9 @@ int main() {
     s.push_back("bye");
     s.push_back("hi");
     cout <<s;
+    cout << s.size() << endl;
+    s.erase(0,3);
+    cout << s;
     // cout << s << endl;
     // cout << s.size() << endl;
     // s.pop_back();
@@ -60,10 +63,10 @@ int main() {
     // cout << s.size() << endl;
     // s.insert(3, "hello");
     // cout << s << endl;
-    cout << s.size() << endl;
-    Sequence s1(2);
-    s1 = s;
-    cout << s1 << endl;
+
+    // Sequence s1(2);
+    // s1 = s;
+    // cout << s1 << endl;
     // cout << s1.front() << endl;
     // cout << s1.back() << endl;
     // cout << s1.size() << endl;
