@@ -53,14 +53,39 @@ Sequence::~Sequence() {
     delete head;
     delete tail;
 }
-
 //
 Sequence &Sequence::operator=(const Sequence &other) {
-    SequenceNode *curr = other.head;
-    while (curr != nullptr) {
-        push_back(curr->item);
-        curr = curr->next;
-    }
+    SequenceNode *otherCurr = other.head;
+
+        while (otherCurr != nullptr) {
+
+            SequenceNode *newNode = new SequenceNode();
+            if (otherCurr->prev == nullptr) {
+                // first node
+                newNode->item = otherCurr->item;
+                newNode->next = nullptr;
+                newNode->prev = nullptr;
+                this->head = newNode;
+                this->tail = newNode;
+            }
+            else {
+                SequenceNode *curr = head;
+                while (curr->next!= nullptr) {
+                    curr = curr->next;
+                }
+                curr->next = newNode;
+                newNode->prev = curr;
+                newNode->next = nullptr;
+                newNode->item = otherCurr->item;
+                this->tail= newNode;
+            }
+            otherCurr = otherCurr->next;
+        }
+        length = other.length;
+    // while (curr != nullptr) {
+    //     push_back(curr->item);
+    //     curr = curr->next;
+    // }
     return *this;
 }
 
@@ -86,6 +111,7 @@ void Sequence::push_back(string item) {
 
     if (head == nullptr) {
         head = newNode;
+        tail = newNode;
         newNode->item = item;
         newNode->next = nullptr;
         newNode->prev = nullptr;
