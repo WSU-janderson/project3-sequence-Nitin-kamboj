@@ -6,6 +6,7 @@ using namespace std;
 Sequence::Sequence() {
     this->head = nullptr;
     this->tail = nullptr;
+    length = 0;
 }
 Sequence::Sequence(size_t len) {
     length = len;
@@ -13,30 +14,30 @@ Sequence::Sequence(size_t len) {
     this->head = nullptr;
     this->tail = nullptr;
     while (i < len) {
-        push_back("");
+        push_back("???");
         i++;
     }
 }
 // creates copy of constructor
 Sequence::Sequence(const Sequence &other) {
-SequenceNode *curr = head;
+SequenceNode *curr = other.head;
 
         while (curr != nullptr) {
             push_back(curr->item);
             curr = curr->next;
     }
-
+    head = nullptr;
+    tail = nullptr;
 }
 
 // deconstructor
 Sequence::~Sequence() {
-
+    clear();
 }
 
 //
 Sequence &Sequence::operator=(const Sequence &other) {
-    SequenceNode *curr = head;
-
+    SequenceNode *curr = other.head;
     while (curr != nullptr) {
         push_back(curr->item);
         curr = curr->next;
@@ -114,6 +115,9 @@ void Sequence::pop_back() {
 
 // Need to work on this
 void Sequence::insert(size_t index, string item) {
+    if (index > length-1) {
+        throw out_of_range("Sequence is out of range");
+    }
 
     SequenceNode *newNode = new SequenceNode(item);
     size_t count = 0;
@@ -186,9 +190,9 @@ string Sequence::back() const {
 //
 bool Sequence::empty() const {
     if (head != nullptr) {
-        return 0;
+        return false;
     }
-    return 1;
+    return true;
 }
 
 //
@@ -213,6 +217,7 @@ void Sequence::clear() {
     }
     head = nullptr;
     tail = nullptr;
+    length = 0;
 }
 
 //
