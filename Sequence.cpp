@@ -14,7 +14,24 @@ Sequence::Sequence(size_t len) {
     this->head = nullptr;
     this->tail = nullptr;
     while (i < len) {
-        push_back("???");
+        SequenceNode *newNode = new SequenceNode("???");
+
+
+        if (head == nullptr) {
+            head = newNode;
+            newNode->item = "???";
+            newNode->next = nullptr;
+            newNode->prev = nullptr;
+        }
+        else {
+            SequenceNode* curr = head;
+            while (curr->next != nullptr) {
+                curr = curr->next;
+            }
+            curr->next = newNode;
+            newNode->prev = curr;
+            tail = newNode;
+        }
         i++;
     }
 }
@@ -33,6 +50,8 @@ SequenceNode *curr = other.head;
 // deconstructor
 Sequence::~Sequence() {
     clear();
+    delete head;
+    delete tail;
 }
 
 //

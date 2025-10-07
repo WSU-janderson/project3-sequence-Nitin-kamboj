@@ -11,8 +11,8 @@
 using namespace std;
 
 int main() {
-    cout << "Y((our project is ready to go!" << endl;
-    Sequence s;
+    cout << "Your project is ready to go!" << endl;
+    Sequence s(8);
     s.push_back("hello");
     s.push_back("bye");
     s.push_back("hi");
@@ -73,6 +73,13 @@ int main() {
     cout << s1<< endl;
     s1.push_back("hj");
     cout << s1 << endl;
+    Sequence data(3);
+    for (int i = 0; i < 3; i++) {
+        data[i] = "1";
+    }
+    cout << data << endl;
+    // data.insert(5, "hdj");
+    cout << data << endl;
     // cout << s.back() << endl;
     // s.pop_back();
     // cout << s ;
