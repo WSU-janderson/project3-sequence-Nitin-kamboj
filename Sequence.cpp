@@ -19,7 +19,7 @@ Sequence::Sequence(size_t len) {
 
         if (head == nullptr) {
             head = newNode;
-            newNode->item = "???";
+            // newNode->item = "???";
             newNode->next = nullptr;
             newNode->prev = nullptr;
         }
@@ -161,7 +161,7 @@ void Sequence::pop_back() {
 
 // Need to work on this
 void Sequence::insert(size_t index, string item) {
-    if (index > length-1) {
+    if (index > length) {
         throw out_of_range("Sequence is out of range");
     }
 
@@ -211,9 +211,7 @@ string Sequence::front() const {
     if (head == nullptr) {
         throw exception();
     }
-    else {
         return head->item;
-    }
 }
 
 //
@@ -222,13 +220,11 @@ string Sequence::back() const {
     if (curr == nullptr) {
         throw exception();
     }
-    else {
         while (curr != nullptr) {
             if (curr->next == nullptr) {
                 break;
             }
             curr = curr->next;
-        }
     }
     return curr->item;
 }
@@ -279,7 +275,7 @@ void Sequence::erase(size_t position) {
         throw exception();
     }
     // if first item is getting removed
-    else if (curr == head) {
+     if (curr == head) {
         head = head->next;
         if (head != nullptr) {
             head->prev = nullptr;
@@ -346,6 +342,7 @@ void Sequence::erase(size_t position, size_t count) {
                 tempCount--;
             }
             curr->next = nodeToConnected;
+            nodeToConnected->prev = curr;
         }
         else {
             SequenceNode *nodeToDelete = curr;

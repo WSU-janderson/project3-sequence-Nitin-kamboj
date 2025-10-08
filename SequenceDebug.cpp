@@ -20,9 +20,11 @@ int main() {
     s.push_back("bye");
     s.push_back("hi");
     cout <<s;
-    cout << s.size() << endl;
-    s.erase(0,3);
-    cout << s;
+    s.insert(5,"hiiiiii");
+    cout <<s;
+    // cout << s.size() << endl;
+    // s.erase(0,3);
+    // cout << s;
     // cout << s << endl;
     // cout << s.size() << endl;
     // s.pop_back();
