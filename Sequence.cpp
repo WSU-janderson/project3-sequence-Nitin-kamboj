@@ -51,8 +51,6 @@ SequenceNode *curr = other.head;
             push_back(curr->item);
             curr = curr->next;
     }
-    head = nullptr;
-    tail = nullptr;
 }
 
 // deconstructor
