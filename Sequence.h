@@ -4,6 +4,7 @@
 #include <iostream>
 using namespace std;
 
+// this is the node of the sequence which contain item, next and prev.
 struct SequenceNode {
 public:
     string item;
