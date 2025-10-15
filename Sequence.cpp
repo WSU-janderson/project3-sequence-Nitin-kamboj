@@ -3,20 +3,26 @@
 using namespace std;
 
 // default constructor
+// Initializes an empty sequence with head and tail as nullptr
+// and sets the initial length to 0.
 Sequence::Sequence() {
     this->head = nullptr;
     this->tail = nullptr;
     length = 0;
 }
+// constructor with given length
+// Creates a sequence of given length 'len' where each node
+// initially contains the string "???" as its item value.
 Sequence::Sequence(size_t len) {
     length = len;
     int i = 0;
     this->head = nullptr;
     this->tail = nullptr;
     while (i < len) {
+        // item of newnode is set to "???"
         SequenceNode *newNode = new SequenceNode("???");
 
-
+        // check first node
         if (head == nullptr) {
             head = newNode;
             // newNode->item = "???";
@@ -36,6 +42,8 @@ Sequence::Sequence(size_t len) {
     }
 }
 // creates copy of constructor
+// Creates a deep copy of another Sequence object.
+// Each node from 'other' is copied into a new node.
 Sequence::Sequence(const Sequence &other) {
 SequenceNode *curr = other.head;
 
@@ -48,14 +56,17 @@ SequenceNode *curr = other.head;
 }
 
 // deconstructor
+// Frees all dynamically allocated memory and clears the list.
 Sequence::~Sequence() {
     clear();
     delete head;
     delete tail;
 }
-//
+// Assignment Operator
+// Clears the current sequence and deep copies another sequence.
 Sequence &Sequence::operator=(const Sequence &other) {
     SequenceNode *otherCurr = other.head;
+    // clear the sequence first so that we may copy from first to other sequence.
     clear();
 
         while (otherCurr != nullptr) {
@@ -90,7 +101,9 @@ Sequence &Sequence::operator=(const Sequence &other) {
     return *this;
 }
 
-
+// Operator [] Overload
+// Provides access to the element at a given index.
+// Throws exception if index is invalid.
 string& Sequence::operator[](size_t index) {
     SequenceNode *curr = head;
     int count = 0;
@@ -105,12 +118,14 @@ string& Sequence::operator[](size_t index) {
     return curr->item;
 }
 
-//
+// push_back()
+// Adds a new node containing 'item' at the end of the list.
 void Sequence::push_back(string item) {
     SequenceNode *newNode = new SequenceNode(item);
 
 
     if (head == nullptr) {
+        // First node case
         head = newNode;
         tail = newNode;
         newNode->item = item;
@@ -118,6 +133,7 @@ void Sequence::push_back(string item) {
         newNode->prev = nullptr;
     }
     else {
+        // Traverse to the end and attach new node
         SequenceNode* curr = head;
         while (curr->next != nullptr) {
             curr = curr->next;
@@ -130,7 +146,9 @@ void Sequence::push_back(string item) {
 }
 
 
-//
+// pop_back()
+// Removes the last node from the list.
+// Throws exception if list is empty.
 void Sequence::pop_back() {
 
     SequenceNode *curr = head;
@@ -139,11 +157,13 @@ void Sequence::pop_back() {
     }
 
     if (curr->next == nullptr) {
+        // Only one node in the list
         delete head;
         head = nullptr;
         tail = nullptr;
     }
     else {
+        // Traverse to last node
         while (curr ->next != nullptr) {
             curr = curr -> next;
         }
@@ -159,7 +179,8 @@ void Sequence::pop_back() {
     length--;
 }
 
-// Need to work on this
+// insert()
+// Inserts a new node with 'item' at the given index.
 void Sequence::insert(size_t index, string item) {
     if (index > length) {
         throw out_of_range("Sequence is out of range");
@@ -168,6 +189,7 @@ void Sequence::insert(size_t index, string item) {
     SequenceNode *newNode = new SequenceNode(item);
     size_t count = 0;
     SequenceNode *curr = head;
+    // Insert at beginning
     if (head == nullptr && index == 0) {
         head = newNode;
         newNode->item = item;
@@ -175,6 +197,7 @@ void Sequence::insert(size_t index, string item) {
         newNode->prev = nullptr;
         tail = newNode;
     }
+    // Insert before current head
     else if (index == 0) {
         newNode->next = head;
         newNode->prev = nullptr;
@@ -182,6 +205,7 @@ void Sequence::insert(size_t index, string item) {
         head = newNode;
 
     }
+    // Insert in the middle or end
     else {
         while (curr->next != nullptr && count < index) {
             curr = curr->next;
@@ -197,6 +221,7 @@ void Sequence::insert(size_t index, string item) {
             newNode->prev = previousPointer;
         }
         else  {
+            // Insert at end
             tail = newNode;
             curr->next = newNode;
             newNode->prev = curr;
@@ -206,7 +231,7 @@ void Sequence::insert(size_t index, string item) {
 
 }
 
-//
+// Returns the item at the beginning of the list.
 string Sequence::front() const {
     if (head == nullptr) {
         throw exception();
@@ -214,7 +239,7 @@ string Sequence::front() const {
         return head->item;
 }
 
-//
+// Returns the item at the end of the list.
 string Sequence::back() const {
     SequenceNode* curr = head;
     if (curr == nullptr) {
@@ -229,7 +254,7 @@ string Sequence::back() const {
     return curr->item;
 }
 
-//
+// Returns true if the list is empty, false otherwise.
 bool Sequence::empty() const {
     if (head != nullptr) {
         return false;
@@ -237,7 +262,7 @@ bool Sequence::empty() const {
     return true;
 }
 
-//
+// Returns the number of elements in the list by traversal.
 size_t Sequence::size() const{
     size_t size = 0;
     SequenceNode *curr = head;
@@ -249,7 +274,7 @@ size_t Sequence::size() const{
         return size;
 }
 
-//
+// Deletes all nodes and resets the sequence.
 void Sequence::clear() {
             SequenceNode *curr = head;
     while (curr != nullptr) {
@@ -262,7 +287,7 @@ void Sequence::clear() {
     length = 0;
 }
 
-//
+// Deletes the node at the given position.
 void Sequence::erase(size_t position) {
     size_t count = 0;
     SequenceNode *curr = head;
@@ -286,10 +311,12 @@ void Sequence::erase(size_t position) {
 
     }
     else if (curr == tail) {
+        // Deleting the last node
         tail = curr->prev;
         tail->next = nullptr;
     }
     else {
+        // Deleting a middle node
         SequenceNode *posPrev = curr->prev;
         SequenceNode *posNext = curr->next;
         posPrev->next = posNext;
@@ -300,7 +327,7 @@ void Sequence::erase(size_t position) {
     length--;
 }
 
-// Looks good for now
+// Removes 'count' nodes starting from 'position'.
 void Sequence::erase(size_t position, size_t count) {
     int tempCount = count;
     SequenceNode *curr = head;
@@ -312,7 +339,8 @@ void Sequence::erase(size_t position, size_t count) {
     if (curr == nullptr) {
         throw exception();
     }
-    else if (position == 0) {
+    if (position == 0) {
+        // Deleting from the start
         curr = head;
         while (count != 0) {
             count--;
@@ -345,6 +373,7 @@ void Sequence::erase(size_t position, size_t count) {
             nodeToConnected->prev = curr;
         }
         else {
+            // Deleting till end
             SequenceNode *nodeToDelete = curr;
             while (tempCount != 0) {
                 curr = curr->prev;
@@ -359,8 +388,7 @@ void Sequence::erase(size_t position, size_t count) {
     }
 }
 
-//
-
+// Prints the sequence in a readable format like [a, b, c]
 ostream &operator<<(ostream &os, const Sequence &seq) {
   SequenceNode* newNode = seq.head;
     os << "[";

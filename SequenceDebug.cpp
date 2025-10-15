@@ -12,7 +12,9 @@ using namespace std;
 
 int main() {
     cout << "Your project is ready to go!" << endl;
+
     Sequence s;
+    // checking test cases whether they are working properly or not.
     s.push_back("hello");
     s.push_back("bye");
     s.push_back("hi");
